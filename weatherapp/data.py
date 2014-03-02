@@ -26,7 +26,8 @@ usergear = db.Table('usergear',
 class ClothingHistoryEntry(db.Model):
     location = db.Column(db.String(80), primary_key=True)
     date = db.Column(db.Date, primary_key=True)
-    temperatures = db.Column(db.Integer)
+    tempHigh = db.Column(db.Integer)
+    tempMin = db.Column(db.Integer)
     precipitation = db.Column(db.Integer)
     comfort = db.Column(db.String(80))
     windSpeed = db.Column(db.Integer)
@@ -36,9 +37,10 @@ class ClothingHistoryEntry(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     gears = db.Column(db.String(100))
 
-    def __init__(self, temperatures, precipitation, comfort, windSpeed, windGust, humidity, cloudPrecip,
+    def __init__(self, tempMax, tempMin, precipitation, comfort, windSpeed, windGust, humidity, cloudPrecip,
                  user_id, gears):
-        self.temperatures = temperatures
+        self.tempMax = tempMax
+        self.tempMin = tempMin
         self.precipitation = precipitation
         self.comfort = comfort
         self.windSpeed = windSpeed

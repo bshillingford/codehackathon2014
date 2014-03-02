@@ -45,11 +45,9 @@ def haversine(lat1, lon1, lat2, lon2):
 
 #Given tuple of coordinates (from user phone), return tuple hoding (siteID, province, longitude, latitude)
 def closestNeighbour(userCoordinates):
-    index = 0
-    closestCity = (index, 99999999)
-    for site in sites:
+    closestCity = (0,999999999)
+    for index, site in enumerate(sites):
         x = haversine(userCoordinates[0], userCoordinates[1], (site[2])[0], (site[2][1]))
         if x < closestCity[1]:
             closestCity = (index, x)
-        index = index+1
     return sites[closestCity[0]]
