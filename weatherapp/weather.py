@@ -29,12 +29,14 @@ with open('localdata/site_list_towns_en.csv') as f:
 #if not res.ok:
 #    raise WeatherException("Failed to fetch siteList.xml; url={} response={}".format(res.url, str(res)))
 
-def haversine(lon1, lat1, lon2, lat2):
+def haversine(coordinates1, coordinates2):
     """
     Calculate the great circle distance between two points 
     on the earth (specified in decimal degrees)
     """
     # convert decimal degrees to radians 
+    lon1, lat1 = coordinates1
+    lon2, lat2 = coordinates2
     lon1, lat1, lon2, lat2 = map(radians, [lon1, lat1, lon2, lat2])
     # haversine formula 
     dlon = lon2 - lon1 
@@ -44,13 +46,15 @@ def haversine(lon1, lat1, lon2, lat2):
     km = 6367 * c
     return km
 
-#Given coordinates (from user phone), return tuple hoding (siteID, province, longitude, latitude)
- def closestNeighbour(userLong, userLat):
+#Given tuple of coordinates (from user phone), return tuple hoding (siteID, province, longitude, latitude)
+def closestNeighbour(userCoordinates):
     index = 0
     closestCity = (index, 20000)
     for site in sites:
-        x = haversine(userLong, userLat, site[3], site[4])
+        x = haversine(userCoordinates, site[2])
         if x < closestCity[1]:
             closestCity = (index, x)
-        index += 1
-    return stes[index]
+            index += 1
+    return sites[index]
+
+print closestNeighbour((23,22))
