@@ -7,7 +7,7 @@ db = SQLAlchemy()
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     clothingHistoryEntry = db.relationship('ClothingHistoryEntry', backref='user', lazy='dynamic')
-    autoCompleteGear = db.relationship('UserGear', backref='user_gear', lazy='dynamic')
+    autoCompleteGear = db.relationship('UserGear', backref='usergear', lazy='dynamic')
 
 
     def __init__(self):
