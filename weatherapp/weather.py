@@ -56,5 +56,3 @@ def closestNeighbour(userCoordinates):
             closestCity = (index, x)
             index += 1
     return sites[index]
-
-print closestNeighbour((23,22))
